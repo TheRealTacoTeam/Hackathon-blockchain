@@ -1,11 +1,20 @@
 module.exports = {
   build: {
     "index.html": "index.html",
-    "app.js": [
-      "javascripts/app.js"
+    "js/app.js": [
+      "js/app.js"
     ],
-    "app.css": [
-      "stylesheets/app.css"
+    "js/bootstrap.min.js": [
+      "js/bootstrap.min.js"
+    ],
+    "js/jquery.js": [
+      "js/jquery.js"
+    ],
+    "css/app.css": [
+      "css/app.css",
+    ],
+    "css/bootstrap.min.css": [
+      "css/bootstrap.min.css",
     ],
     "images/": "images/"
   },
