@@ -23,3 +23,4 @@ function decodeDamageStruct(data) {
 
     return out;
 }
+
