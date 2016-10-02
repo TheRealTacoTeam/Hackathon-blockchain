@@ -42,6 +42,25 @@ $('#storeCar').click(function() {
     });
 });
 
+$('#storeReport').click(function() {
+    var license = $('#inputLicenseReport').val();
+    var name = $('#inputNameReport').val();
+    var description = $('#inputDescriptionReport').val();
+
+    ledger.findByLicense(license, {from: account}).then(function(addr) {
+        if (addr == nullAddr) {
+            alert('Could not find ' + license);
+            return;
+        }
+
+        Car.at(addr).addDamage(name, description, {from: account});
+
+        alert('Added report for ' + license);
+        $('#inputNameReport').val('');
+        $('#inputDescriptionReport').val('');
+    });
+});
+
 var currentLicense;
 $("#searchLicenseButton").click(function() {
     updateList($('#inputLicense')[0].value);

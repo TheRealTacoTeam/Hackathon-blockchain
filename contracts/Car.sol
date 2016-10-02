@@ -23,8 +23,7 @@ contract Car is owned {
 
     Damage[] public damages;
     
-    event DamageAdded(uint damageId, string name, string description);
-    event DamageRepaired(uint damageId, string name);
+    event DamageUpdated(uint damageId);
 
     struct Damage {
         string name;
@@ -46,7 +45,7 @@ contract Car is owned {
             name, description, false, msg.sender, now, 0, 0 
         ));
 
-        DamageAdded(damageId, name, description);
+        DamageUpdated(damageId);
     }
 
     function repairDamage(uint damageId) {
@@ -54,7 +53,7 @@ contract Car is owned {
         damages[damageId].repairer = msg.sender;
         damages[damageId].timestampRepair = now;
 
-        DamageRepaired(damageId, damages[damageId].name);
+        DamageUpdated(damageId);
     }
 
     function damageCount() constant returns (uint) {
