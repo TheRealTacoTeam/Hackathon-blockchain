@@ -44524,7 +44524,7 @@ window.addEventListener('load', function() {
 
                                                                 
 
-  [Car,Ledger,Migrations,owned].forEach(function(contract) {         
+  [Ledger,Migrations,Car,owned].forEach(function(contract) {         
 
     contract.setProvider(window.web3.currentProvider);          
 
