@@ -1,21 +1,16 @@
 module.exports = {
   build: {
     "index.html": "index.html",
-    "js/app.js": [
-      "js/app.js"
+    "car.html": "car.html",
+    "listing.html": "listing.html",
+
+    "app.js": [
+      "js/jquery.js",
+      "js/bootstrap.min.js",
+      "js/app.js",
     ],
-    "js/bootstrap.min.js": [
-      "js/bootstrap.min.js"
-    ],
-    "js/jquery.js": [
-      "js/jquery.js"
-    ],
-    "css/app.css": [
-      "css/app.css",
-    ],
-    "css/bootstrap.min.css": [
-      "css/bootstrap.min.css",
-    ],
+    "css/app.css": "css/app.css",
+    "css/bootstrap.min.css": "css/bootstrap.min.css",
     "images/": "images/"
   },
   rpc: {
