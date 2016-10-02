@@ -40,7 +40,7 @@ $('#storeCar').click(function() {
         console.log('Adding ' + license + ' @ ' + car.address);
         ledger.addCar(car.address, license, {from: account});
 
-        alert('Schaderapportage toegevoegd voor ' + license);
+        alert('Auto toegevoegd ' + license);
         $('#inputDescription').val('');
         $('#inputLicense').val('');
     });
@@ -83,6 +83,10 @@ function updateList(license) {
         }
 
         var car = Car.at(addr);
+        car.description().then(function(d) {
+            $('#currentCarName').text(d);
+        });
+
         car.damageCount.call().then(function (num) {
             num = num.toNumber();
 
