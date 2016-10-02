@@ -44524,7 +44524,7 @@ window.addEventListener('load', function() {
 
                                                                 
 
-  [Car,Ledger,Migrations,owned].forEach(function(contract) {         
+  [Ledger,Car,Migrations,owned].forEach(function(contract) {         
 
     contract.setProvider(window.web3.currentProvider);          
 
@@ -44590,6 +44590,10 @@ $('#storeCar').click(function() {
     ).then(function(car) {
         console.log('Adding ' + license + ' @ ' + car.address);
         ledger.addCar(car.address, license, {from: account});
+
+        alert('Schaderapportage toegevoegd voor ' + license);
+        $('#inputDescription').val('');
+        $('#inputLicense').val('');
     });
 });
 
@@ -44600,13 +44604,13 @@ $('#storeReport').click(function() {
 
     ledger.findByLicense(license, {from: account}).then(function(addr) {
         if (addr == nullAddr) {
-            alert('Could not find ' + license);
+            alert('Kon het kenteken niet vinden: ' + license);
             return;
         }
 
         Car.at(addr).addDamage(name, description, {from: account});
 
-        alert('Added report for ' + license);
+        alert('Schaderapportage toegevoegd voor ' + license);
         $('#inputNameReport').val('');
         $('#inputDescriptionReport').val('');
     });
@@ -44614,13 +44618,18 @@ $('#storeReport').click(function() {
 
 var currentLicense;
 $("#searchLicenseButton").click(function() {
-    updateList($('#inputLicense')[0].value);
+    updateList($('#inputLicenseList')[0].value);
 });
+
+function repairDamage(addr, index) {
+    Car.at(addr).repairDamage(index, {from: account});
+    updateList(currentLicense);
+}
 
 function updateList(license) {
     ledger.findByLicense(license, {from: account}).then(function(addr) {
         if(addr == nullAddr) {
-            alert('Could not find ' + license);
+            alert('Kon het kenteken niet vinden: ' + license);
             return;
         }
 
@@ -44637,7 +44646,7 @@ function updateList(license) {
                 for(var i = 0; i < num; i++) {
                     data[i] = decodeDamageStruct(data[i]);
 
-                    var repairBtn = 'repair('+addr+','+i+')';
+                    var repairBtn = 'repairDamage("'+addr+'",'+i+')';
                     table.append($('<tr>').append(
                         $('<td>').text(data[i].name),
                         $('<td>').text(data[i].description),
